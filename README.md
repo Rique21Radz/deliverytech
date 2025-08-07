@@ -1,4 +1,5 @@
-Aplicação de Delivery como projeto prático
+Aplicação de delivery como projeto prático
 
 Curso Arquitetura de Sistemas
+
 Fundação FAT - QualificaSP
