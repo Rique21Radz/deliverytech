@@ -1,0 +1,31 @@
+services:
+  # Serviço 1: A aplicação Spring Boot.
+  app:
+    build: .
+    container_name: deliverytech-app
+    ports:
+      - "8080:8080"
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - ACTUATOR_PASSWORD=${ACTUATOR_PASSWORD} 
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+
+  # Serviço 2: O monitor de métricas Prometheus.
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus-monitor
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      
+  # Serviço 3: O REDIS.
+  redis:
+    image: "redis:7-alpine"
+    container_name: redis-cache
+    ports:
+      - "6379:6379"
